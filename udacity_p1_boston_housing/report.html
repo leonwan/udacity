@@ -11803,7 +11803,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 载入此项目所需要的库</span>
@@ -11827,7 +11827,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 载入波士顿房屋的数据集</span>
@@ -11894,25 +11894,25 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#TODO 1</span>
 
 <span class="c1">#目标：计算价值的最小值</span>
-<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1">#目标：计算价值的最大值</span>
-<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1">#目标：计算价值的平均值</span>
-<span class="n">mean_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1">#目标：计算价值的中值</span>
-<span class="n">median_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">median_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1">#目标：计算价值的标准差</span>
-<span class="n">std_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">std_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1">#目标：输出计算的结果</span>
 <span class="k">print</span> <span class="s2">&quot;Statistics for Boston housing dataset:</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -11943,7 +11943,7 @@ Minimum price: $105,000.00
 Maximum price: $1,024,800.00
 Mean price: $454,342.94
 Median price $438,900.00
-Standard deviation of prices: $165,340.28
+Standard deviation of prices: $165,171.13
 </pre>
 </div>
 </div>
@@ -12051,8 +12051,8 @@ test size $294.00
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#38382;&#39064;-2---&#22238;&#31572;:">&#38382;&#39064; 2 - &#22238;&#31572;:<a class="anchor-link" href="#&#38382;&#39064;-2---&#22238;&#31572;:">&#194;&#182;</a></h3><ul>
-<li>通过测试可以避免过拟合，结果更加贴近真实。方便进行交叉验证，例如：kflod cross validation。</li>
-<li>测试的结果会不真实，不具有实际的参考意义。</li>
+<li>通过比较比较模型在测试集和训练集的表现，判断是否出现了过拟合或者欠拟合。</li>
+<li>划分测试集是为了评估模型在未知数据的泛化能力，用训练集数据测试，则无法准确评估模型是否具有泛化能力。</li>
 </ul>
 
 </div>
@@ -12113,7 +12113,7 @@ test size $294.00
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO 3 可选</span>
@@ -12122,9 +12122,21 @@ test size $294.00
 
 <span class="k">def</span> <span class="nf">performance_metric2</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_predict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;计算并返回预测值相比于预测值的分数&quot;&quot;&quot;</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    <span class="n">y_predict</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_predict</span><span class="p">)</span>
     
-    <span class="n">score</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_predict</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-
+    <span class="c1"># 以下代码参考了r2_score的源码。</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_predict</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    
+    <span class="n">nonzero_denominator</span> <span class="o">=</span> <span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">nonzero_numerator</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="n">valid_score</span> <span class="o">=</span> <span class="n">nonzero_denominator</span> <span class="o">&amp;</span> <span class="n">nonzero_numerator</span>
+    
+    <span class="n">output_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">y_true</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">output_scores</span><span class="p">[</span><span class="n">valid_score</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">numerator</span><span class="p">[</span><span class="n">valid_score</span><span class="p">]</span> <span class="o">/</span> <span class="n">denominator</span><span class="p">[</span><span class="n">valid_score</span><span class="p">])</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">output_scores</span><span class="p">)</span>
+    
     <span class="k">return</span> <span class="n">score</span>
 </pre></div>
 
@@ -12175,7 +12187,7 @@ test size $294.00
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 计算这个模型的预测结果的决定系数</span>
@@ -13828,7 +13840,7 @@ qijxiYhIVFHiExGRqKLEJyIiUeX/Ae90iPvkVkSxAAAAAElFTkSuQmCC
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#38382;&#39064; 8 - &#22238;&#31572;&#65306;<a class="anchor-link" href="#&#38382;&#39064;-8---&#22238;&#31572;&#65306;">&#194;&#182;</a></h3><ul>
-<li>k-fold cross-validation的意思是把数据随机的分为k等份，每次用其中的一份作为验证，其他的作为训练。模型的效果以k的效果的均值作为最后结果。这样做可以避免因训练／验证数据利用不全而造成的误差，从而让结果置信度更高。</li>
+<li>k-fold cross-validation的意思是把训练数据分为k等份（默认为顺序分配），每次用其中的一份作为验证，其他的作为训练。模型的效果以k次效果的均值作为最后结果。多次取平均值能够减少对模型表现评分的误差，这样就可以更准确地找到最优参数</li>
 <li>GridSearchCV对每种参数的组合都采用交叉验证的方式计算其在验证集的效果，最终选择效果最好的那一组参数组合。</li>
 <li>GirdSearchCV中‘cv<em>results</em>’ 是一个dict，其中包括网格搜索的结果，每种参数的选择，每种组合下的效果，排名，时间花费等内容，比较全面的描述了GridSearchCV的结果。</li>
 <li>如果不使用交叉验证，可能会因为数据的不全面而导致出现偏差。交叉验证通过随机的将数据分成k等份，并且每次选择其中一份作为验证集，可以有效避免可能会数据倾斜而造成的偏差。</li>
@@ -14279,7 +14291,7 @@ Range in prices: $29,438.89
 <li>不能在现实世界中使用。</li>
 </ul>
 <h4 id="&#21407;&#22240;&#22914;&#19979;&#65306;">&#21407;&#22240;&#22914;&#19979;&#65306;<a class="anchor-link" href="#&#21407;&#22240;&#22914;&#19979;&#65306;">&#194;&#182;</a></h4><ul>
-<li>1，如今和78年相比出现了较大的通货膨胀，所以78年数据得出相关系数肯定不能很好的拟合如今的房价。</li>
+<li>1，虽然考虑了35年的通货膨胀，也只是考虑到2013年，但到今天仍有五年的通货膨胀没有考虑，所以在今天不能适用。</li>
 <li>2，数据中的特征才三个，是在不足以描述一个房屋的价格，缺少房屋朝向，是否学区房，是否紧邻医院，是否紧邻cbd等等</li>
 <li>3，不能用在其他的乡镇，不同地区可能相关性是一样的，但是相关系数肯定有所不同。</li>
 <li>4，仅用社区环境评价房屋不合理，还包括楼层，朝向，是否楼王等等。</li>
