@@ -12138,10 +12138,10 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong></p>
 <ul>
-<li>3, 200, 333分别代表超市，咖啡馆及零售商。</li>
-<li>3的Fresh量比较大，倾向于超市。</li>
-<li>200的Milk量比较大，Milk是咖啡的主要原料之一，倾向于咖啡馆。</li>
-<li>333的各个种类购买的量都比较大，并且Grocery／Detergents尤其量大，倾向于零售商。</li>
+<li>3, 200, 333分别代表超市，零售商及零售商。</li>
+<li>3的Fresh为13265，比Fresh特征的mean及中分位数都要大，在三种企业类型中超市更倾向于销售Fresh，所以3应该倾向于超市。</li>
+<li>200的Milk为13240，Grocery为23127，Detergents_Paper为9959，都比mean及中分位数大，尤其是Grocery，因此倾向于零售商。</li>
+<li>333的各个种类购买的量都比较大，并且Grocery为67298，Detergents为38102都大于Q3分位数，偏向max值，很明显倾向于零售商。</li>
 </ul>
 
 </div>
@@ -14069,7 +14069,7 @@ DMMwDMMwjCny/wF2eAYjCf/r7QAAAABJRU5ErkJggg==
 <ul>
 <li>Milk，Grocery，Detergents_Paper之间存在一定程度的相关性。</li>
 <li>验证了Grocery特征的相关性。</li>
-<li>这些数据不是正态分布，更像是指数分布。大多数的数据点分布在靠近0的位置，但也有一些值比较大的数据。</li>
+<li>这些数据不是正态分布，更像是对数正态分布（log-normal）。</li>
 </ul>
 
 </div>
@@ -14100,14 +14100,14 @@ DMMwDMMwjCny/wF2eAYjCf/r7QAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO：使用自然对数缩放数据</span>
-<span class="n">log_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">log_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># TODO：使用自然对数缩放样本数据</span>
-<span class="n">log_samples</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">log_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
 
 <span class="c1"># 为每一对新产生的特征制作一个散射矩阵</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_matrix</span><span class="p">(</span><span class="n">log_data</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">diagonal</span> <span class="o">=</span> <span class="s1">&#39;kde&#39;</span><span class="p">);</span>
@@ -18314,7 +18314,7 @@ MBgMBsOmwDg/BoPBYDAYDAaDYVNgnB+DwWAwGAwGg8GwKfi/tBsM3KOlZsQAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># 对于每一个特征，找到值异常高或者是异常低的数据点</span>
@@ -18339,7 +18339,7 @@ MBgMBsOmwDg/BoPBYDAYDAaDYVNgnB+DwWAwGAwGg8GwKfi/tBsM3KOlZsQAAAAASUVORK5CYII=
     <span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;outliers&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outliers_data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="p">(</span><span class="o">~</span><span class="p">((</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="n">step</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="n">step</span><span class="p">)))</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># 打印异常点</span>
-<span class="k">print</span> <span class="n">outliers_data</span><span class="p">[</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;outliers&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">[</span><span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;outliers&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># 可选：选择你希望移除的数据点的索引</span>
 <span class="n">outliers</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">154</span><span class="p">]</span>
@@ -19106,19 +19106,7 @@ MBgMBsOmwDg/BoPBYDAYDAaDYVNgnB+DwWAwGAwGg8GwKfi/tBsM3KOlZsQAAAAASUVORK5CYII=
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>        Fresh      Milk    Grocery    Frozen  Detergents_Paper  Delicatessen  \
-65   4.442651  9.950323  10.732651  3.583519         10.095388      7.260523   
-66   2.197225  7.335634   8.911530  5.164786          8.151333      3.295837   
-75   9.923192  7.036148   1.098612  8.390949          1.098612      6.882437   
-128  4.941642  9.087834   8.248791  4.955827          6.967909      1.098612   
-154  6.432940  4.007333   4.919981  4.317488          1.945910      2.079442   
-
-     outliers  
-65          2  
-66          2  
-75          2  
-128         2  
-154         3  
+<pre>42
 </pre>
 </div>
 </div>
@@ -19144,6 +19132,7 @@ MBgMBsOmwDg/BoPBYDAYDAaDYVNgnB+DwWAwGAwGg8GwKfi/tBsM3KOlZsQAAAAASUVORK5CYII=
 <ul>
 <li>多于一个特征下被看作是异常的数据点有五个，分别是：65，66，75，128，154.</li>
 <li>这些点应该被移除，因为Kmeans算法对异常值敏感，会影响聚类的结果。</li>
+<li>存在特征异常的数据点有42个，总的样本量有440个，异常点占10%，如果所有特征异常的数据点都去掉，则可能因为丢失数据而产生偏差。</li>
 </ul>
 
 </div>
@@ -19536,7 +19525,10 @@ CyZJkiRJ6rBgkiRJkqSO/wUmsGpjgOjg6AAAAABJRU5ErkJggg==
 <ul>
 <li>第一个和第二个主成分总共代表了0.71的方差。</li>
 <li>前四个主成分代表了0.93的方差。</li>
-<li>最能代表零售店类型的客户，因为Detergents_Paper是第一主成分中最大的负权特征，Detergents_Paper的主要销售渠道是零售商。</li>
+<li>第一个主成分由于Grocery／Milk／Detergents_Paper权重很大，最可能代表零售商类型的客户；</li>
+<li>第二个主成分由于Fresh／Frozen／Delicatessen权重很大，最可能代表超市。</li>
+<li>第三个主成分由于Fresh是负权很大，Delicatessen正权很大，最可能代表咖啡厅。</li>
+<li>第四个主成分由于Frozen正权很大，Delicatessen负权很大，最可能代表冷鲜超市。</li>
 </ul>
 
 </div>
@@ -21792,8 +21784,8 @@ AADQcgiEAAAAALQcAiEAAAAALYdACAAAAEDL+f99t3dm0XXtEQAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong></p>
 <ul>
-<li>3，200代表 Cluster0，因为他们和Cluster0的聚类中心一样，都是Fresh／Frozen多一些，其他的相对少一些。</li>
-<li>333代表Cluster1，因为他们和Cluster1的聚类中心一样，Detergents_Paper／Grocery比较大，但Frozen比较少。</li>
+<li>Cluster0的聚类中心Fresh／Frozen均比特征的mean及中位数要大，但Milk／Grocery／Detergents_Paper都比mean及中位数要小。因此Cluster0倾向于表示超市客户。</li>
+<li>Cluster1的聚类中心Milk／Grocery／Detergents_Paper都比特征的mean及中位数大，且Fresh／Frozen要比特征的mean及中位数小。因此Cluster1倾向于表示零售商客户。</li>
 </ul>
 
 </div>
@@ -21850,9 +21842,9 @@ Sample point 2 predicted to be in Cluster 1
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>回答:</strong></p>
 <ul>
-<li>3分类到 Cluster0</li>
-<li>200，333分类到Cluster1</li>
-<li>200的结果不同，其他两个和预测的结果相同。</li>
+<li>3分类到Cluster0，因为他们和Cluster0的聚类中心一样，都是Fresh／Frozen多一些，其他的相对少一些。</li>
+<li>200，333分类到Cluster1，因为他们和Cluster1的聚类中心一样，Detergents_Paper／Grocery比较大，但Frozen比较少。</li>
+<li>通过运行聚类算法，预测的结果是3分类到Cluster0；200，333分类到Cluster1，与之前对样本的预测结果相同。</li>
 </ul>
 
 </div>
