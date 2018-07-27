@@ -2,12 +2,13 @@ import random
 
 class Robot(object):
 
-    def __init__(self, maze, alpha=0.5, gamma=0.9, epsilon0=0.5):
+    def __init__(self, maze, alpha=0.5, gamma=0.9, epsilon0=0.5, decay='exponential'):
 
         self.maze = maze
         self.valid_actions = self.maze.valid_actions
         self.state = None
         self.action = None
+        self.decay = decay
 
         # Set Parameters of the Learning Robot
         self.alpha = alpha
@@ -46,9 +47,15 @@ ltered,
             self.epsilon = 0
         else:
             # TODO 2. Update parameters when learning
+            # 根据建议修改，测试线性衰减和指数衰减的区别。
             self.t += 1
-            self.epsilon = self.epsilon0 * pow(0.999, self.t)
-
+            if self.decay == 'exponential':
+                self.epsilon = self.epsilon0 * pow(0.999, self.t)
+            elif self.decay == 'linear':
+                self.epsilon = max(self.epsilon0 - 0.005 * self.t, 0)
+            else:
+                self.epsilon = self.epsilon0 * pow(0.999, self.t)
+                
         return self.epsilon
 
     def sense_state(self):
@@ -68,8 +75,8 @@ ltered,
         # If Qtable[state] already exits, then do
         # not change it.
         
-        if state not in self.Qtable:
-            self.Qtable[state] = {'u':0.0, 'd':0.0, 'r':0.0, 'l':0.0}
+        # 根据建议修改，采用dict的setdefault函数。
+        self.Qtable.setdefault(state, {a: 0.0 for a in self.valid_actions})
 
     def choose_action(self):
         """
@@ -80,10 +87,8 @@ ltered,
             # TODO 5. Return whether do random choice
             # hint: generate a random number, and compare
             # it with epsilon
-            is_random = False
-            if random.random() < self.epsilon:
-                is_random = True
-            return is_random
+            
+            return random.random() < self.epsilon
 
         if self.learning:
             if is_random_exploration():
@@ -114,7 +119,8 @@ ltered,
         if self.learning:
             # TODO 8. When learning, update the q table according
             # to the given rules
-            self.Qtable[self.state][action] = (1.0-self.alpha) * self.Qtable[self.state][action] + self.alpha * (r + self.gamma*self.Qtable[next_state][max(self.Qtable[next_state], key = self.Qtable[next_state].get)])
+            # 根据建议修改，优化复杂的代码
+            self.Qtable[self.state][action] = (1.0-self.alpha) * self.Qtable[self.state][action] + self.alpha * (r + self.gamma*max(self.Qtable[next_state].values()))
 
     def update(self):
         """
