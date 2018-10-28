@@ -17,6 +17,5 @@ def create_submission(model_name, predictions, data_root_path):
             df.iat[index, pos + 1] = max(min(predictions[index][pos],1-10**(-15)),10**(-15))
 
     #生成可提交文件
-    print(df)
     saved_file_name = 'submission/'+model_name + '_submission.csv'
     df.to_csv(saved_file_name, index=None)
