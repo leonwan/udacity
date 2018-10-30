@@ -1,0 +1,8 @@
+# 监控gpu的状态
+watch -n 1 nvidia-smi
+
+# jupyterhub启动命令
+nohup jupyter notebook --ip=192.168.192.165 --port=60005 --no-browser > ~/log/jupyterhub.log 2>&1 &
+
+# kaggle submit命令
+kaggle competitions submit -c state-farm-distracted-driver-detection -f file -m "message"

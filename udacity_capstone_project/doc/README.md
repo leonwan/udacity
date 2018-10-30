@@ -1,2 +1,7 @@
 # distracted_driver_detection
 这是udacity机器学习纳米学位的毕业项目
+报告及导出html路径为：udacity/udacity_capstone_project/doc/Nano_Degree_Report.pdf
+融合模型：udacity/udacity_capstone_project/FinalMixModel.ipynb
+单模型：udacity/udacity_capstone_project/FeatureTransferLearning.ipynb
+数据分析：udacity/udacity_capstone_project/DataVisualization.ipynb
+环境配置：udacity/udacity_capstone_project/requirements/environment.yml
